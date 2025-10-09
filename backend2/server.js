@@ -989,15 +989,15 @@ app.post('/physical-rooms', verifyClerkToken, requireAdmin, async (req, res) => 
         }
 
         // Check if room number already exists
-        const [existingRoom] = await roomDb.execute('SELECT id FROM physical_rooms WHERE room_number = ?', [roomNumber]);
-        if (existingRoom.length > 0) {
-            return res.status(409).json({ error: 'Physical room with this number already exists.' });
-        }
-
-        const [result] = await roomDb.execute(
-            `INSERT INTO physical_rooms (room_type_id, room_number, status) VALUES (?, ?, 'available')`,
-            [roomTypeId, roomNumber]
+        const [existingRoom] = await roomDb.execute(
+            'SELECT id FROM physical_rooms WHERE room_number = ? AND room_type_id = ?',
+            [roomNumber, roomTypeId]
         );
+        if (existingRoom.length > 0) {
+
+        return res.status(409).json({ error: 'Physical room number already exists for this room type.' });
+        }
+        
         res.status(201).json({ message: 'Physical room added successfully', id: result.insertId });
 
         // Emit real-time update
