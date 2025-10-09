@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
 
-const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;
 
 const HotelCard = ({ room, index }) => {
   // Use window.scrollTo instead of just scrollTo for broader compatibility

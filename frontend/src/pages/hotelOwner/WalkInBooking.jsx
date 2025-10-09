@@ -6,7 +6,7 @@ import 'react-day-picker/dist/style.css';
 import '../../styles/calendar.css';
 import { format, addDays, differenceInDays, isSameDay, eachDayOfInterval } from 'date-fns';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
 
 const WalkInBooking = () => {
     // State for guest information

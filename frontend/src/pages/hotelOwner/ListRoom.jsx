@@ -6,7 +6,7 @@ import EditRoom from './EditRoom';
 import { useAuth } from '@clerk/clerk-react';
 import { assets } from '../../assets/assets';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
 
 const AddRoomModal = ({ onClose, onRoomAdded }) => {
   const { isLoaded, isSignedIn, getToken } = useAuth();
