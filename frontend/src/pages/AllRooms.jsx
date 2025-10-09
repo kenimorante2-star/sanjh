@@ -36,7 +36,7 @@ const RadioButton = ({ label, selected = false, onChange = () => {} }) => {
 // ---------------------------------------------
 
 // --- CONSTANT DATA MOVED OUTSIDE COMPONENT (only non-dynamic ones) ---
-const BACKEND_BASE_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
+const BACKEND_BASE_URL = process.env.VITE_REACT_APP_BACKEND_URL;
 
 const SORT_OPTIONS = ['Price Low to High', 'Price High to Low', 'Newest First'];
 // ---------------------------------------------
