@@ -91,94 +91,116 @@ const AllRooms = () => {
     };
 
     // --- Initial Fetch of Rooms and Dynamic Filter Options Generation ---
-   useEffect(() => {
-        const fetchAndPrepareRooms = async () => {
-            try {
-                // Fetch rooms and ratings concurrently for better performance
-                const [roomsResponse, ratingsResponse] = await Promise.all([
-                    axios.get(`${BACKEND_BASE_URL}/rooms`),
-                    axios.get(`${BACKEND_BASE_URL}/room-ratings-summary`) // NEW: Fetch ratings summary
-                ]);
+   
+useEffect(() => {
+    const fetchAndPrepareRooms = async () => {
+        try {
+            // Fetch rooms and ratings concurrently for better performance
+            const [roomsResponse, ratingsResponse] = await Promise.all([
+                // NOTE: Ensure your backend has the /rooms endpoint configured correctly
+                axios.get(`${BACKEND_BASE_URL}/rooms`), 
+                axios.get(`${BACKEND_BASE_URL}/room-ratings-summary`) 
+            ]);
 
-                const fetchedRooms = roomsResponse.data;
-                const fetchedRatingsSummary = ratingsResponse.data; // This will be an object like { '1': {averageRating: 4.5, reviewCount: 10}, '2': {...} }
+            // 🛑 CRITICAL FIX 1: Validate roomsResponse.data is an array
+            const fetchedRooms = roomsResponse.data;
+            if (!Array.isArray(fetchedRooms)) {
+                console.error("Rooms API returned data that is not an array:", fetchedRooms);
+                // Set state to an empty array to prevent filtering crash
+                setAllRooms([]); 
+                setLoading(false);
+                setError('Rooms data format error. Check backend response for /rooms.');
+                return; // Exit the function early
+            }
 
-                // Filter available rooms and enrich them with rating data
-                const fetchedAvailableRooms = fetchedRooms.filter(room => room.isAvailable === 1).map(room => {
-                    const roomRatingInfo = fetchedRatingsSummary[room.id] || { averageRating: 0, reviewCount: 0 };
+            const fetchedRatingsSummary = ratingsResponse.data;
+            
+            // 🛑 CRITICAL FIX 2: Validate ratingsResponse.data is an object (or fall back to an empty object)
+            // The ratings summary is expected to be an object (map), so we check if it's null/undefined
+            const ratingsMap = (typeof fetchedRatingsSummary === 'object' && fetchedRatingsSummary !== null) 
+                               ? fetchedRatingsSummary 
+                               : {};
+            
+            // Filter available rooms and enrich them with rating data
+            const fetchedAvailableRooms = fetchedRooms
+                .filter(room => room.isAvailable === 1) // This line now safe due to Fix 1
+                .map(room => {
+                    // Use the safe ratingsMap
+                    const roomRatingInfo = ratingsMap[room.id] || { averageRating: 0, reviewCount: 0 };
                     return {
                         ...room,
-                        averageRating: parseFloat(roomRatingInfo.averageRating), // Ensure it's a number
-                        reviewCount: parseInt(roomRatingInfo.reviewCount, 10)     // Ensure it's an integer
+                        averageRating: parseFloat(roomRatingInfo.averageRating || 0), // Use || 0 as fallback
+                        reviewCount: parseInt(roomRatingInfo.reviewCount || 0, 10)     
                     };
                 });
 
-                setAllRooms(fetchedAvailableRooms);
-                setLoading(false);
+            setAllRooms(fetchedAvailableRooms);
+            setLoading(false);
 
-                // --- Generate Dynamic Filter Options ---
-                const uniqueRoomTypes = new Set();
-                const uniqueAmenities = new Set();
-                let maxPriceFromRooms = 0;
+            // --- Generate Dynamic Filter Options (Remains unchanged) ---
+            const uniqueRoomTypes = new Set();
+            const uniqueAmenities = new Set();
+            let maxPriceFromRooms = 0;
 
-                fetchedAvailableRooms.forEach(room => {
-                    uniqueRoomTypes.add(room.roomType);
-                    if (room.amenities && Array.isArray(room.amenities)) {
-                        room.amenities.forEach(amenity => uniqueAmenities.add(amenity));
-                    }
-                    if (room.pricePerNight !== undefined && room.pricePerNight !== null) {
-                        maxPriceFromRooms = Math.max(maxPriceFromRooms, room.pricePerNight);
-                    }
-                });
+            fetchedAvailableRooms.forEach(room => {
+                uniqueRoomTypes.add(room.roomType);
+                if (room.amenities && Array.isArray(room.amenities)) {
+                    room.amenities.forEach(amenity => uniqueAmenities.add(amenity));
+                }
+                if (room.pricePerNight !== undefined && room.pricePerNight !== null) {
+                    maxPriceFromRooms = Math.max(maxPriceFromRooms, room.pricePerNight);
+                }
+            });
 
-                setAvailableRoomTypes(Array.from(uniqueRoomTypes).sort());
-                setAvailableAmenities(Array.from(uniqueAmenities).sort());
+            setAvailableRoomTypes(Array.from(uniqueRoomTypes).sort());
+            setAvailableAmenities(Array.from(uniqueAmenities).sort());
 
-                // Dynamically generate price ranges based on a fixed minimum and max price from rooms
-                const generatedPriceRanges = [];
-                const priceStep = 1000;
-                const fixedMinPrice = 2000;
+            // Dynamically generate price ranges logic...
+            const generatedPriceRanges = [];
+            const priceStep = 1000;
+            const fixedMinPrice = 2000;
 
-                let currentMin = fixedMinPrice;
-                let currentMax = fixedMinPrice + priceStep; // The "to" value for the label
+            let currentMin = fixedMinPrice;
+            let currentMax = fixedMinPrice + priceStep; // The "to" value for the label
 
-                while (currentMin <= maxPriceFromRooms + priceStep) {
-                    let label;
-                    let rangeMax; // This will be the exclusive upper bound for filtering
+            while (currentMin <= maxPriceFromRooms + priceStep) {
+                let label;
+                let rangeMax; // This will be the exclusive upper bound for filtering
 
-                    // If the current minimum is the highest, or covers the max price, make it an 'X+' range
-                    if (currentMin >= maxPriceFromRooms && generatedPriceRanges.length > 0) {
-                        label = `₱ ${currentMin}+`;
-                        rangeMax = Infinity; // Filter will be pricePerNight >= currentMin
-                        generatedPriceRanges.push({ label, min: currentMin, max: rangeMax });
-                        break;
-                    } else {
-                        // For ranges in between: 2000 - 2999
-                        const displayMax = currentMax - 1; // Subtract 1 for the label
-                        label = `₱ ${currentMin} - ${displayMax}`;
-                        rangeMax = currentMax; // Filter will still use `currentMax` as the exclusive upper bound
-                        generatedPriceRanges.push({ label, min: currentMin, max: rangeMax });
-                    }
-
-                    currentMin = currentMax;
-                    currentMax += priceStep;
+                // If the current minimum is the highest, or covers the max price, make it an 'X+' range
+                if (currentMin >= maxPriceFromRooms && generatedPriceRanges.length > 0) {
+                    label = `₱ ${currentMin}+`;
+                    rangeMax = Infinity; // Filter will be pricePerNight >= currentMin
+                    generatedPriceRanges.push({ label, min: currentMin, max: rangeMax });
+                    break;
+                } else {
+                    // For ranges in between: 2000 - 2999
+                    const displayMax = currentMax - 1; // Subtract 1 for the label
+                    label = `₱ ${currentMin} - ${displayMax}`;
+                    rangeMax = currentMax; // Filter will still use `currentMax` as the exclusive upper bound
+                    generatedPriceRanges.push({ label, min: currentMin, max: rangeMax });
                 }
 
-                // Fallback for cases where no rooms fetched or all rooms are below fixedMinPrice but you still want 2000+
-                if (generatedPriceRanges.length === 0) {
-                    generatedPriceRanges.push({ label: `₱ ${fixedMinPrice}+`, min: fixedMinPrice, max: Infinity });
-                }
-
-                setAvailablePriceRanges(generatedPriceRanges);
-
-            } catch (err) {
-                console.error("Failed to fetch and prepare rooms for AllRooms:", err);
-                setError('Failed to fetch rooms and ratings. Please check your backend server.');
-                setLoading(false);
+                currentMin = currentMax;
+                currentMax += priceStep;
             }
-        };
-        fetchAndPrepareRooms();
-    }, []); 
+
+            // Fallback for cases where no rooms fetched or all rooms are below fixedMinPrice but you still want 2000+
+            if (generatedPriceRanges.length === 0) {
+                generatedPriceRanges.push({ label: `₱ ${fixedMinPrice}+`, min: fixedMinPrice, max: Infinity });
+            }
+
+            setAvailablePriceRanges(generatedPriceRanges);
+
+        } catch (err) {
+            console.error("Failed to fetch and prepare rooms for AllRooms:", err);
+            // This error is for network issues or non-200 HTTP codes
+            setError('Failed to fetch rooms and ratings. Please check your backend server.');
+            setLoading(false);
+        }
+    };
+    fetchAndPrepareRooms();
+}, []);
 
     // --- Filtering and Sorting Logic ---
     useEffect(() => {
