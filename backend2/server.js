@@ -616,8 +616,6 @@ app.get('/rooms/:id', async (req, res) => {
 app.get('/rooms', async (req, res) => {
   try {
     const [results] = await roomDb.execute('SELECT * FROM rooms');
-
-    // Use BASE_URL env var or fallback to localhost
     const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
 
     const rooms = results.map(room => {
@@ -625,24 +623,21 @@ app.get('/rooms', async (req, res) => {
       const parsedAmenities = safeParseJSON(room.amenities, []);
       const parsedOwner = safeParseJSON(room.owner, {});
 
-      // Ensure images have full backend URL
-      const fullImageUrls = parsedImages.map(img => {
-        // If already starts with "http", leave it as is
-        if (typeof img === 'string' && img.startsWith('http')) return img;
+      // ✅ Normalize image URLs correctly
+      const fixedImages = parsedImages.map(img => {
+        if (!img) return null;
 
-        // If path already includes "/uploads", just prepend the domain
-        if (typeof img === 'string' && img.includes('/uploads/')) {
-          return `${baseUrl}${img}`;
-        }
+        // If already a valid URL (starts with http:// or https://), just return it
+        if (/^https?:\/\//i.test(img)) return img;
 
-        // Otherwise assume it's just a filename (legacy uploads)
-        return `${baseUrl}/uploads/room_images/${img}`;
-      });
+        // Otherwise, make it absolute with BASE_URL
+        return `${baseUrl}${img.startsWith('/') ? img : `/uploads/room_images/${img}`}`;
+      }).filter(Boolean); // Remove nulls
 
       return {
         ...room,
         amenities: parsedAmenities,
-        images: fullImageUrls,
+        images: fixedImages,
         owner: parsedOwner,
       };
     });
@@ -653,6 +648,7 @@ app.get('/rooms', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 
 app.post(
