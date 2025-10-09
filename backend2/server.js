@@ -15,7 +15,7 @@ const { format, differenceInDays, addDays, differenceInHours, isAfter } = requir
 
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3306;
 
 app.use(cors({
     origin: 'https://sanjhislandhotel.bsitpro.com',
@@ -137,6 +137,7 @@ async function initDbs() {
             user: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_ROOM_NAME,
+            port: process.env.DB_PORT
         });
         console.log('Connected to Room Management Database (room_management_db)');
 
@@ -145,6 +146,7 @@ async function initDbs() {
             user: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_BOOKING_NAME,
+            port: process.env.DB_PORT
         });
         console.log('Connected to Booking Database (booking_db)');
 
@@ -153,6 +155,7 @@ async function initDbs() {
             user: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_USER_NAME,
+            port: process.env.DB_PORT
         });
         console.log('Connected to User Database (user_db)');
 
@@ -161,6 +164,7 @@ async function initDbs() {
             user: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_FEEDBACK_NAME,
+            port: process.env.DB_PORT
         });
         console.log('Connected to Feedback Database (feedback_db)');
 
@@ -169,6 +173,7 @@ async function initDbs() {
             user: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_WALK_NAME,
+            port: process.env.DB_PORT
         });
         console.log('Connected to Walk-In Booking Database (walk_in_booking_db)');
 
