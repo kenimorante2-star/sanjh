@@ -693,6 +693,7 @@ app.post(
       maxGuests,
     } = req.body;
     const uploadedFiles = req.files;
+    
 
     if (!roomType || pricePerNight === undefined || isNaN(Number(pricePerNight))) {
       return res
