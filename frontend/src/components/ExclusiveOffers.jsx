@@ -9,7 +9,7 @@ const ExclusiveOffers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const BACKEND_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;
+  const BACKEND_BASE_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";
   useEffect(() => {
     const fetchExclusiveOffers = async () => {
       try {

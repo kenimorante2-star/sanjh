@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth, useUser, SignedIn } from '@clerk/clerk-react';
 import axios from 'axios';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;// IMPORTANT: Ensure this matches your backend URL
+const BACKEND_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";// IMPORTANT: Ensure this matches your backend URL
 
 const MyProfile = () => {
     const { userId, getToken, isLoaded: authLoaded, isSignedIn } = useAuth();

@@ -8,7 +8,7 @@ const FeaturedDestination = () => {
   const [featuredRooms, setFeaturedRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;
+  const API_BASE_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";
 
   useEffect(() => {
     const fetchFeaturedRooms = async () => {

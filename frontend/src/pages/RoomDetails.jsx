@@ -14,7 +14,7 @@ import '../styles/calendar.css';
 import { eachDayOfInterval, format, differenceInDays, startOfDay } from 'date-fns';
 
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";
 
 const RoomDetails = () => {
     const { id } = useParams();

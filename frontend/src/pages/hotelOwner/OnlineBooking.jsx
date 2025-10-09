@@ -4,7 +4,7 @@ import { useAuth } from '@clerk/clerk-react';
 import { io } from 'socket.io-client';
 import { differenceInHours } from 'date-fns'; // Import differenceInHours
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";
 
 const AdminDashboard = () => {
     const { isLoaded, isSignedIn, getToken } = useAuth();
