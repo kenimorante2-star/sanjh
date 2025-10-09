@@ -2,19 +2,17 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 
-dotenv.config(); // load .env variables
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT ?? 3000; // Railway provides PORT in production
+const PORT = process.env.PORT ?? 3000;
 
-// Serve static files from Vite build
+// Serve static frontend build
 app.use(express.static(path.resolve("./dist")));
 
-// Always return index.html for SPA routing
+// SPA fallback
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("./dist/index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Frontend running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Frontend running on port ${PORT}`));
