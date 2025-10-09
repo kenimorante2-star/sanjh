@@ -36,7 +36,7 @@ const RadioButton = ({ label, selected = false, onChange = () => {} }) => {
 // ---------------------------------------------
 
 // --- CONSTANT DATA MOVED OUTSIDE COMPONENT (only non-dynamic ones) ---
-const BACKEND_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_BASE_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
 const SORT_OPTIONS = ['Price Low to High', 'Price High to Low', 'Newest First'];
 // ---------------------------------------------
@@ -95,12 +95,23 @@ const AllRooms = () => {
 useEffect(() => {
     const fetchAndPrepareRooms = async () => {
         try {
+            const roomsUrl = `${BACKEND_BASE_URL}/rooms`;
+            const ratingsUrl = `${BACKEND_BASE_URL}/room-ratings-summary`;
+
+            // 🛑 TEMPORARY LOGGING ADDED HERE
+            console.log("------------------------------------------------------------------");
+            console.log(`[API CHECK] Attempting to fetch rooms from URL: ${roomsUrl}`);
+            console.log(`[API CHECK] Attempting to fetch ratings from URL: ${ratingsUrl}`);
+            console.log("------------------------------------------------------------------");
+            // 🛑 END TEMPORARY LOGGING
+
             // Fetch rooms and ratings concurrently for better performance
             const [roomsResponse, ratingsResponse] = await Promise.all([
                 // NOTE: Ensure your backend has the /rooms endpoint configured correctly
                 axios.get(`${BACKEND_BASE_URL}/rooms`), 
                 axios.get(`${BACKEND_BASE_URL}/room-ratings-summary`) 
             ]);
+            
 
             // 🛑 CRITICAL FIX 1: Validate roomsResponse.data is an array
             const fetchedRooms = roomsResponse.data;
