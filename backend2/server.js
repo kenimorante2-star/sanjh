@@ -15,7 +15,7 @@ const { format, differenceInDays, addDays, differenceInHours, isAfter } = requir
 
 
 const app = express();
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3301;
 
 app.use(cors({
     origin: 'https://sanjhislandhotel.bsitpro.com',
@@ -135,8 +135,8 @@ async function initDbs() {
         roomDb = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_ROOM_NAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.ROOM_DB,
             port: process.env.DB_PORT
         });
         console.log('Connected to Room Management Database (room_management_db)');
@@ -144,8 +144,8 @@ async function initDbs() {
         bookingDb = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_BOOKING_NAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.BOOKING_DB,
             port: process.env.DB_PORT
         });
         console.log('Connected to Booking Database (booking_db)');
@@ -153,8 +153,8 @@ async function initDbs() {
         userDb = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_USER_NAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.USER_DB,
             port: process.env.DB_PORT
         });
         console.log('Connected to User Database (user_db)');
@@ -162,8 +162,8 @@ async function initDbs() {
         feedbackDb = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_FEEDBACK_NAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.FEEDBACK_DB,
             port: process.env.DB_PORT
         });
         console.log('Connected to Feedback Database (feedback_db)');
@@ -171,8 +171,8 @@ async function initDbs() {
          walkInBookingDb = await mysql.createConnection({
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_WALK_NAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.WALKIN_DB,
             port: process.env.DB_PORT
         });
         console.log('Connected to Walk-In Booking Database (walk_in_booking_db)');
