@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import { io } from 'socket.io-client';
 
-const BACKEND_URL = 'https://sanjhislandhotel.bsitpro.com/backend';
+const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
 
 const PhysicalRooms = () => {
   const [rooms, setRooms] = useState([]);

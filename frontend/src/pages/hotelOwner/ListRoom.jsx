@@ -6,7 +6,7 @@ import EditRoom from './EditRoom';
 import { useAuth } from '@clerk/clerk-react';
 import { assets } from '../../assets/assets';
 
-const BACKEND_URL = 'https://sanjhislandhotel.bsitpro.com/backend';
+const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
 
 const AddRoomModal = ({ onClose, onRoomAdded }) => {
   const { isLoaded, isSignedIn, getToken } = useAuth();

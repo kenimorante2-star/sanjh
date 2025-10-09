@@ -6,7 +6,7 @@ import 'react-day-picker/dist/style.css';
 import '../../styles/calendar.css';
 import { format, addDays, differenceInDays, isSameDay, eachDayOfInterval } from 'date-fns';
 
-const BACKEND_URL = 'https://sanjhislandhotel.bsitpro.com/backend';
+const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
 
 const WalkInBooking = () => {
     // State for guest information

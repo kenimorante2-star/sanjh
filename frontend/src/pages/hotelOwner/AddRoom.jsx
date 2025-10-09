@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 
 const AddRoom = () => {
-const BACKEND_BASE_URL = 'https://sanjhislandhotel.bsitpro.com/backend';
+const BACKEND_BASE_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
   const { isLoaded, isSignedIn, getToken } = useAuth();
 
   const [images, setImages] = useState({

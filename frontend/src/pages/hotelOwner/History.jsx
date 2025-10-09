@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import { differenceInDays } from 'date-fns';
 
-const BACKEND_URL = 'https://sanjhislandhotel.bsitpro.com/backend';// Define backend URL
-
+const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
 const History = () => {
   const { isLoaded, isSignedIn, getToken } = useAuth();
   const [historyData, setHistoryData] = useState([]);
