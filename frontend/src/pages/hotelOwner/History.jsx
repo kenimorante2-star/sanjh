@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import { differenceInDays } from 'date-fns';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const History = () => {
   const { isLoaded, isSignedIn, getToken } = useAuth();
   const [historyData, setHistoryData] = useState([]);

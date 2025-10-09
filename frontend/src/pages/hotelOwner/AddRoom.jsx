@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 
 const AddRoom = () => {
-const BACKEND_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_URL;
   const { isLoaded, isSignedIn, getToken } = useAuth();
 
   const [images, setImages] = useState({

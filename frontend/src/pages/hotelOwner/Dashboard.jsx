@@ -7,7 +7,7 @@ import { differenceInHours } from 'date-fns'; // Import differenceInHours
 
 const AdminDashboard = () => {
     
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
     const [dashboardData, setDashboardData] = useState({
