@@ -7,10 +7,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
-// Serve static frontend build
 app.use(express.static(path.resolve("./dist")));
 
-// SPA fallback
+// SPA fallback for React
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("./dist/index.html"));
 });
