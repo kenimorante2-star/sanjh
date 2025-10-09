@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 3301;
 
 app.use(cors({
-    origin: 'sanjhislandhotel.up.railway.app',
+    origin: 'https://sanjhislandhotel.up.railway.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -105,7 +105,7 @@ const uploadRoomImages = multer({
 const server = http.createServer(app); // Create HTTP server using your express app
 const io = new Server(server, { // Initialize Socket.IO with the HTTP server
     cors: {
-        origin: 'sanjhislandhotel.up.railway.app', // Allow your frontend to connect
+        origin: 'https://sanjhislandhotel.up.railway.app', // Allow your frontend to connect
         methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
     }
 });
