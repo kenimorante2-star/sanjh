@@ -18,6 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 3301;
 
 // Honor X-Forwarded-* headers (needed on Railway) so req.protocol is accurate
+// Honor X-Forwarded-* headers (needed on Railway) so req.protocol is accurate
 app.set('trust proxy', 1);
 
 // Flexible CORS: allow multiple origins via CORS_ORIGINS env (comma-separated)
@@ -26,19 +27,16 @@ const allowedOrigins = (process.env.CORS_ORIGINS || 'https://sanjhislandhotel.up
   .map((o) => o.trim())
   .filter(Boolean);
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow non-browser requests or same-origin
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error(`Not allowed by CORS: ${origin}`));
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
- })
-);
+const corsConfig = {
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
 
 app.use(express.json());
 
@@ -102,7 +100,7 @@ const roomImageStorage = multer.diskStorage({
 });
 
 const uploadRoomImages = multer({
-    storage: roomImageStorage,
+storage: roomImageStorage,
   limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
