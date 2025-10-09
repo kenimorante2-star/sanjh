@@ -613,116 +613,160 @@ app.get('/rooms/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch room details' });
     }
 });
-
 app.get('/rooms', async (req, res) => {
-    try {
-        const [results] = await roomDb.execute('SELECT * FROM rooms');
-        const rooms = results.map(room => {
-            const parsedImages = safeParseJSON(room.images, []);
-            const parsedAmenities = safeParseJSON(room.amenities, []);
-            const parsedOwner = safeParseJSON(room.owner, {});
+  try {
+    const [results] = await roomDb.execute('SELECT * FROM rooms');
 
-            return {
-                ...room,
-                amenities: parsedAmenities,
-                images: parsedImages,
-                owner: parsedOwner,
-            };
-        });
-        res.json(rooms);
-    }
-    catch (err) {
-        console.error("Error getting all rooms:", err);
-        res.status(500).json({ error: err.message });
-    }
+    // Use BASE_URL env var or fallback to localhost
+    const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+    const rooms = results.map(room => {
+      const parsedImages = safeParseJSON(room.images, []);
+      const parsedAmenities = safeParseJSON(room.amenities, []);
+      const parsedOwner = safeParseJSON(room.owner, {});
+
+      // Ensure images have full backend URL
+      const fullImageUrls = parsedImages.map(img => {
+        // If already starts with "http", leave it as is
+        if (typeof img === 'string' && img.startsWith('http')) return img;
+
+        // If path already includes "/uploads", just prepend the domain
+        if (typeof img === 'string' && img.includes('/uploads/')) {
+          return `${baseUrl}${img}`;
+        }
+
+        // Otherwise assume it's just a filename (legacy uploads)
+        return `${baseUrl}/uploads/room_images/${img}`;
+      });
+
+      return {
+        ...room,
+        amenities: parsedAmenities,
+        images: fullImageUrls,
+        owner: parsedOwner,
+      };
+    });
+
+    res.json(rooms);
+  } catch (err) {
+    console.error('[SERVER] Error getting all rooms:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
-app.post('/rooms', verifyClerkToken, requireAdmin, uploadRoomImages.array('images', 5), async (req, res) => {
-    const { roomType, pricePerNight, amenities, owner = JSON.stringify({}), isAvailable = true, maxGuests } = req.body;
+app.post(
+  '/rooms',
+  verifyClerkToken,
+  requireAdmin,
+  uploadRoomImages.array('images', 5),
+  async (req, res) => {
+    const {
+      roomType,
+      pricePerNight,
+      amenities,
+      owner = JSON.stringify({}),
+      isAvailable = true,
+      maxGuests,
+    } = req.body;
     const uploadedFiles = req.files;
 
     if (!roomType || pricePerNight === undefined || isNaN(Number(pricePerNight))) {
-        return res.status(400).json({ error: 'Missing or invalid required fields: roomType and pricePerNight' });
+      return res
+        .status(400)
+        .json({ error: 'Missing or invalid required fields: roomType and pricePerNight' });
     }
+
+    // --- Use full base URL for images ---
+    const baseUrl = process.env.BASE_URL || `http://localhost:${PORT}`;
 
     let amenitiesArray;
     if (typeof amenities === 'string') {
-        try {
-            amenitiesArray = JSON.parse(amenities);
-            if (!Array.isArray(amenitiesArray)) {
-                console.warn("Parsed amenities was not an array, falling back to split:", amenities);
-                amenitiesArray = amenities.split(',').map(a => a.trim());
-            }
-        } catch (e) {
-            console.warn("Failed to JSON parse amenities string, attempting split:", amenities);
-            amenitiesArray = amenities.split(',').map(a => a.trim());
+      try {
+        amenitiesArray = JSON.parse(amenities);
+        if (!Array.isArray(amenitiesArray)) {
+          console.warn('Parsed amenities was not an array, falling back to split:', amenities);
+          amenitiesArray = amenities.split(',').map((a) => a.trim());
         }
+      } catch (e) {
+        console.warn('Failed to JSON parse amenities string, attempting split:', amenities);
+        amenitiesArray = amenities.split(',').map((a) => a.trim());
+      }
     } else if (Array.isArray(amenities)) {
-        amenitiesArray = amenities;
+      amenitiesArray = amenities;
     } else {
-        amenitiesArray = [];
+      amenitiesArray = [];
     }
     const amenitiesString = JSON.stringify(amenitiesArray);
 
-    const imageUrls = uploadedFiles && Array.isArray(uploadedFiles) && uploadedFiles.length > 0
-        ? uploadedFiles.map(file => `/uploads/room_images/${file.filename}`)
+    // --- FIXED: Use full image URLs ---
+    const imageUrls =
+      uploadedFiles && Array.isArray(uploadedFiles) && uploadedFiles.length > 0
+        ? uploadedFiles.map((file) => `${baseUrl}/uploads/room_images/${file.filename}`)
         : [];
+
     const imagesString = JSON.stringify(imageUrls);
 
     let ownerParsed = {};
     try {
-        ownerParsed = typeof owner === 'string' ? JSON.parse(owner) : owner;
+      ownerParsed = typeof owner === 'string' ? JSON.parse(owner) : owner;
     } catch (e) {
-        console.warn("Could not parse owner string:", owner, e);
-        ownerParsed = {};
+      console.warn('Could not parse owner string:', owner, e);
+      ownerParsed = {};
     }
     const ownerString = JSON.stringify(ownerParsed);
 
-    const isAvailableFlag = (isAvailable === true || isAvailable === 'true' || isAvailable === 1) ? 1 : 0;
+    const isAvailableFlag =
+      isAvailable === true || isAvailable === 'true' || isAvailable === 1 ? 1 : 0;
 
-    const parsedMaxGuests = (maxGuests === undefined || maxGuests === null || maxGuests === '') ? null : parseInt(maxGuests);
+    const parsedMaxGuests =
+      maxGuests === undefined || maxGuests === null || maxGuests === ''
+        ? null
+        : parseInt(maxGuests);
     if (parsedMaxGuests !== null && isNaN(parsedMaxGuests)) {
-        return res.status(400).json({ error: 'Invalid maxGuests value' });
+      return res.status(400).json({ error: 'Invalid maxGuests value' });
     }
 
     const query = `
-        INSERT INTO rooms (roomType, pricePerNight, amenities, images, owner, isAvailable, maxGuests)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO rooms (roomType, pricePerNight, amenities, images, owner, isAvailable, maxGuests)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     try {
-        const [result] = await roomDb.execute(query, [
-            roomType,
-            parseFloat(pricePerNight),
-            amenitiesString,
-            imagesString,
-            ownerString,
-            isAvailableFlag,
-            parseInt(maxGuests)
-        ]);
+      const [result] = await roomDb.execute(query, [
+        roomType,
+        parseFloat(pricePerNight),
+        amenitiesString,
+        imagesString,
+        ownerString,
+        isAvailableFlag,
+        parsedMaxGuests,
+      ]);
 
+      // Emit real-time update
+      emitRealtimeUpdate('roomAdded', {
+        id: result.insertId,
+        roomType,
+        pricePerNight: parseFloat(pricePerNight),
+        amenities: amenitiesArray,
+        images: imageUrls,
+        owner: ownerParsed,
+        isAvailable: isAvailableFlag,
+        maxGuests: parsedMaxGuests,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
 
-        // --- NEW: Emit real-time update after successful room creation ---
-        emitRealtimeUpdate('roomAdded', {
-            id: result.insertId, // The ID of the newly inserted room
-            roomType: roomType,
-            pricePerNight: parseFloat(pricePerNight),
-            amenities: amenitiesArray, // Send as array for convenience on frontend
-            images: imageUrls,       // Send as array for convenience on frontend
-            owner: ownerParsed,      // Send as object for convenience on frontend
-            isAvailable: isAvailableFlag,
-            maxGuests: parseInt(maxGuests),
-            createdAt: new Date().toISOString(), // Example: If DB sets default timestamp
-            updatedAt: new Date().toISOString(),
-        });
-
-        res.status(201).json({ message: 'Room added', roomId: result.insertId, imageUrls: imageUrls });
+      res
+        .status(201)
+        .json({ message: 'Room added', roomId: result.insertId, imageUrls: imageUrls });
     } catch (err) {
-        console.error("Error adding room to database:", err);
-        res.status(500).json({ error: err.message || 'Failed to add room' });
+      console.error('Error adding room to database:', err);
+      res.status(500).json({ error: err.message || 'Failed to add room' });
     }
-});
+  }
+);
+
 
 app.put('/rooms/:id', verifyClerkToken, requireAdmin, async (req, res) => {
     const roomId = req.params.id;
