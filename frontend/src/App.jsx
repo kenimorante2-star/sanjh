@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './index.css';
 import 'react-day-picker/dist/style.css';
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
-import { SignedIn, useUser } from '@clerk/clerk-react';
+import { useUser } from '@clerk/clerk-react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -18,8 +18,8 @@ import ListRoom from './pages/hotelOwner/ListRoom';
 import EditRoom from './pages/hotelOwner/EditRoom';
 import MyProfile from './pages/MyProfile';
 import WalkInBooking from './pages/hotelOwner/WalkInBooking';
-import Testimonial from './components/Testimonial'; 
-import FeedbacksPage from './pages/FeedbacksPage'; 
+import Testimonial from './components/Testimonial';
+import FeedbacksPage from './pages/FeedbacksPage';
 import AboutUs from './pages/AboutUs';
 import History from './pages/hotelOwner/History';
 
@@ -46,7 +46,7 @@ const App = () => {
   const { user, isLoaded, isSignedIn } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
-  const isOwnerPath = location.pathname.includes('owner');
+  const isOwnerPath = location.pathname.startsWith('/owner');
 
   const [modalMessage, setModalMessage] = useState(null);
   const showModal = useCallback((message) => setModalMessage(message), []);
@@ -58,7 +58,7 @@ const App = () => {
   useEffect(() => {
     if (isOwnerPath && isLoaded) {
       if (!isAdmin) {
-        navigate(isSignedIn ? '/' : '/sign-in');
+        navigate(isSignedIn ? '/' : '/sign-in', { replace: true });
       }
     }
   }, [isOwnerPath, isAdmin, isSignedIn, isLoaded, navigate]);
@@ -80,17 +80,17 @@ const App = () => {
           {/* Authenticated Routes */}
           <Route
             path="/my-bookings"
-            element={isSignedIn ? <MyBookings /> : <Navigate to="/sign-in" />}
+            element={isSignedIn ? <MyBookings /> : <Navigate to="/sign-in" replace />}
           />
           <Route
             path="/my-profile"
-            element={isSignedIn ? <MyProfile /> : <Navigate to="/sign-in" />}
+            element={isSignedIn ? <MyProfile /> : <Navigate to="/sign-in" replace />}
           />
 
           {/* Owner/Admin Routes */}
           <Route
             path="/owner/*"
-            element={isLoaded && isAdmin ? <Layout /> : <Navigate to="/" />}
+            element={isLoaded && isAdmin ? <Layout /> : <Navigate to="/" replace />}
           >
             <Route index element={<Dashboard />} />
             <Route path="physical-room" element={<PhysicalRoom />} />

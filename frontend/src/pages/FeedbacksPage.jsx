@@ -34,7 +34,7 @@ const FeedbacksPage = ({ showModal }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const API_BASE_URL = "https://sanjhislandhotel-backend-9220.up.railway.app";// IMPORTANT: Keep this consistent with your Testimonial.jsx!
+  const API_BASE_URL = import.meta.env.REACT_APP_BACKEND_URL;// IMPORTANT: Keep this consistent with your Testimonial.jsx!
 
 
 
