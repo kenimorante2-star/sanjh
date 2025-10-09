@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config(); // loads only your local .env
 
 const app = express();
-const PORT = import.meta.env.PORT ?? 8080;
+const PORT = process.env.PORT ?? 8080;
 
 // Serve static files from build
 app.use(express.static(path.resolve("./dist")));
