@@ -36,7 +36,11 @@ const RadioButton = ({ label, selected = false, onChange = () => {} }) => {
 // ---------------------------------------------
 
 // --- CONSTANT DATA MOVED OUTSIDE COMPONENT (only non-dynamic ones) ---
-const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_BASE_URL = window.REACT_APP_BACKEND_URL;
+
+if (!BACKEND_BASE_URL) {
+    console.warn("WARNING: REACT_APP_BACKEND_URL is not set. Frontend API calls will likely fail.");
+}
 
 const SORT_OPTIONS = ['Price Low to High', 'Price High to Low', 'Newest First'];
 // ---------------------------------------------
