@@ -1,18 +1,21 @@
 import express from "express";
 import path from "path";
-import dotenv from "dotenv";
-
-dotenv.config(); // loads only your local .env
+import { fileURLToPath } from "url";
 
 const app = express();
-const PORT = process.env.PORT ?? 8080;
+const PORT = process.env.PORT || 8080;
 
-// Serve static files from build
-app.use(express.static(path.resolve("./dist")));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// SPA fallback: any route returns index.html
+// Serve the build folder
+app.use(express.static(path.join(__dirname, "dist")));
+
+// Always serve index.html for React Router paths
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("./dist/index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.listen(PORT, () => console.log(`Frontend running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Frontend server running on port ${PORT}`);
+});
