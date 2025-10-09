@@ -1,13 +1,12 @@
 // App.jsx
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Ensure useState, useEffect, useCallback are imported
 import './index.css';
 import 'react-day-picker/dist/style.css';
-import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
-import { useUser } from '@clerk/clerk-react';
-
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { SignedIn, useUser } from '@clerk/clerk-react';
 import Home from './pages/Home';
+import Footer from './components/Footer';
 import AllRooms from './pages/AllRooms';
 import RoomDetails from './pages/RoomDetails';
 import MyBookings from './pages/MyBookings';
@@ -18,12 +17,13 @@ import ListRoom from './pages/hotelOwner/ListRoom';
 import EditRoom from './pages/hotelOwner/EditRoom';
 import MyProfile from './pages/MyProfile';
 import WalkInBooking from './pages/hotelOwner/WalkInBooking';
-import Testimonial from './components/Testimonial';
-import FeedbacksPage from './pages/FeedbacksPage';
+import Testimonial from './components/Testimonial'; 
+import FeedbacksPage from './pages/FeedbacksPage'; 
 import AboutUs from './pages/AboutUs';
 import History from './pages/hotelOwner/History';
 
-// --- Global Modal ---
+// --- Modal Component (moved here for global access and consistency) ---
+// This Modal component is directly within App.jsx to be managed by App's state
 const Modal = ({ message, onClose }) => {
   if (!message) return null;
 
@@ -42,56 +42,81 @@ const Modal = ({ message, onClose }) => {
   );
 };
 
+
 const App = () => {
+  const isOwnerPath = useLocation().pathname.includes("owner");
   const { user, isLoaded, isSignedIn } = useUser();
   const navigate = useNavigate();
-  const location = useLocation();
-  const isOwnerPath = location.pathname.startsWith('/owner');
 
+  // State and functions for the global modal
   const [modalMessage, setModalMessage] = useState(null);
-  const showModal = useCallback((message) => setModalMessage(message), []);
-  const closeModal = () => setModalMessage(null);
 
+  const showModal = useCallback((message) => {
+    setModalMessage(message);
+  }, []);
+
+  const closeModal = () => {
+    setModalMessage(null);
+  };
+
+  // Check if the user is an admin
   const isAdmin = isLoaded && isSignedIn && user?.publicMetadata?.role === 'admin';
 
-  // Redirect non-admins from /owner routes
+  // Use useEffect to handle redirections for owner paths
   useEffect(() => {
-    if (isOwnerPath && isLoaded) {
-      if (!isAdmin) {
-        navigate(isSignedIn ? '/' : '/sign-in', { replace: true });
+    if (isLoaded && isOwnerPath) { // Only run this effect if Clerk is loaded and we are on an owner path
+      if (!isAdmin) { // If not an admin
+        if (isSignedIn) {
+          // If signed in but not admin, redirect to a different page (e.g., home or a specific dashboard)
+          navigate('/'); // Redirect to home or another appropriate page for non-admins
+        } else {
+          // If not signed in, redirect to the Clerk sign-in page
+          navigate('/sign-in'); // Assuming you have a /sign-in route for Clerk
+        }
       }
     }
-  }, [isOwnerPath, isAdmin, isSignedIn, isLoaded, navigate]);
+  }, [isLoaded, isAdmin, isSignedIn, isOwnerPath, navigate]); // Dependencies for useEffect
 
   return (
     <div>
+      {/* Conditionally render Navbar based on path */}
       {!isOwnerPath && <Navbar />}
 
-      <div className="min-h-[70vh]">
+      <div className='min-h-[70vh]'>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/rooms" element={<AllRooms />} />
-          <Route path="/rooms/:id" element={<RoomDetails />} />
-          <Route path="/testimonials" element={<Testimonial showModal={showModal} />} />
-          <Route path="/feedbacks" element={<FeedbacksPage showModal={showModal} />} />
+          {/* Main Public Routes */}
+          <Route path='/' element={<Home />} />
+          <Route path='/rooms' element={<AllRooms />} />
+          <Route path='/rooms/:id' element={<RoomDetails />} />
+
+          {/* New Testimonial and Feedbacks Routes */}
+          {/* Place Testimonial on a specific route, e.g., '/testimonials' */}
+          {/* IMPORTANT: If you want testimonials on the home page, you'd render Testimonial directly in the Home component,
+              or adjust the Home route to also include Testimonial. For now, assuming a dedicated route. */}
+          <Route path='/testimonials' element={<Testimonial showModal={showModal} />} />
+          {/* FeedbacksPage component to display all testimonials */}
+          <Route path='/feedbacks' element={<FeedbacksPage showModal={showModal} />} />
           <Route path="/about" element={<AboutUs />} />
 
-          {/* Authenticated Routes */}
-          <Route
-            path="/my-bookings"
-            element={isSignedIn ? <MyBookings /> : <Navigate to="/sign-in" replace />}
-          />
-          <Route
-            path="/my-profile"
-            element={isSignedIn ? <MyProfile /> : <Navigate to="/sign-in" replace />}
-          />
 
-          {/* Owner/Admin Routes */}
-          <Route
-            path="/owner/*"
-            element={isLoaded && isAdmin ? <Layout /> : <Navigate to="/" replace />}
-          >
+          {/* Authenticated User Routes */}
+          <Route path='/my-bookings' element={
+            <SignedIn>
+              <MyBookings />
+            </SignedIn>
+          } />
+
+          <Route path='/my-profile' element={
+            <SignedIn>
+              <MyProfile />
+            </SignedIn>
+          } />
+
+          {/* Hotel Owner Routes (Nested Routes) */}
+          {/* Ensure Layout is rendered only if the user is an admin */}
+          <Route path='/owner' element={
+            isLoaded && isAdmin ? <Layout /> : null
+          }>
             <Route index element={<Dashboard />} />
             <Route path="physical-room" element={<PhysicalRoom />} />
             <Route path="list-room" element={<ListRoom />} />
@@ -100,12 +125,16 @@ const App = () => {
             <Route path="history" element={<History />} />
           </Route>
 
-          {/* Optional 404 page */}
+          {/* You might want to add a catch-all 404 route for unmatched paths */}
           {/* <Route path="*" element={<NotFoundPage />} /> */}
+
         </Routes>
       </div>
 
+      {/* Footer is always rendered */}
       <Footer />
+
+      {/* Global Modal Component - accessible by all routes */}
       <Modal message={modalMessage} onClose={closeModal} />
     </div>
   );

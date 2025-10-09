@@ -8,11 +8,9 @@ const PORT = process.env.PORT || 8080;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Serve the build folder
 app.use(express.static(path.join(__dirname, "dist")));
 
-// Always serve index.html for React Router paths
-app.get("*", (req, res) => {
+app.get("/{*any}", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
