@@ -7,7 +7,7 @@ import { differenceInHours } from 'date-fns'; // Import differenceInHours
 
 const AdminDashboard = () => {
     
-const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
     const { isLoaded, isSignedIn, getToken } = useAuth();
 
     const [dashboardData, setDashboardData] = useState({

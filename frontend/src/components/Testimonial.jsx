@@ -62,7 +62,7 @@ const Testimonial = ({ showModal }) => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Define your backend API URL
-  const API_BASE_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';// IMPORTANT: Change this to your backend's actual URL!
+  const API_BASE_URL = process.env.REACT_APP_BACKEND_URL;// IMPORTANT: Change this to your backend's actual URL!
 
   const fetchTestimonials = useCallback(async () => {
     setLoading(true);

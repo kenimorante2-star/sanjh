@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // For star ic
 import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'; // Solid star for filled
 import { faStar as regularStar } from '@fortawesome/free-regular-svg-icons'; // Regular star for outline
 
-const BACKEND_URL = 'https://sanjhislandhotel-backend-9220.up.railway.app';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Star Rating Component (Helper component for MyBookings)
 const StarRating = ({ rating, setRating, isEditable }) => {
