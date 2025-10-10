@@ -1175,7 +1175,6 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
-                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Date/Time</th> {/* ADDED THIS HEADER */}
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
@@ -1220,10 +1219,6 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                         </td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.roomType}</td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Displaying physicalRoomNumber */}
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
-                                                            {/* Display check-in date/time for walk-ins */}
-                                                            {formatWalkInCheckIn(booking)}
-                                                        </td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                                                             
                                                              {formatWalkInCheckOut(booking)}
