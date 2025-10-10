@@ -1068,14 +1068,14 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{parseFloat(booking.lateCheckOutFee || 0).toFixed(2)}</td> {/* Display Late Check-out Fee */}
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{booking.totalPrice.toFixed(2)}</td>
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
-                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                <span className={`px-2 inline-flex text-xs leading-5 rounded-full ${
                                     booking.isPaid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                                 }`}>
                                     {booking.isPaid ? 'Yes' : 'No'}
                                 </span>
                             </td>
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
-                                <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                <span className={`px-2 inline-flex text-xs leading-5  rounded-full
                                     ${isOverdue ? 'bg-red-400 text-white' : // Overdue
                                     booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
                                     booking.status === 'approved' ? 'bg-blue-100 text-blue-800' :
@@ -1086,7 +1086,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     {isOverdue ? 'OVERDUE' : booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                                 </span>
                                 {booking.isApproachingCheckout && booking.status === 'approved' && !isOverdue && ( // Only show if not already overdue
-                                    <p className="text-yellow-600 text-xs mt-1 font-semibold">Approaching Checkout!</p>
+                                    <p className="text-yellow-600 text-xs mt-1 ">Approaching Checkout!</p>
                                 )}
                             </td>
                             <td className="px-4 py-2 whitespace-nowrap text-right text-xs font-medium">
@@ -1171,17 +1171,17 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Paid Status</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
-                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Booking Status</th>
-                                                <th className="px-4 py-2 text-center text-xxs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                                <th className="px-4 py-2 text-center text-xxs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid Status</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking Status</th>
+                                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                                <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
@@ -1226,7 +1226,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             {booking.nights || 'N/A'}
                                                         </td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
-                                                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                            <span className={`px-2 inline-flex text-xs leading-5 rounded-full
                                                                 ${booking.isPaid === 'Fully Paid' ? 'bg-green-100 text-green-800' :
                                                                 booking.isPaid === 'Partial' ? 'bg-yellow-100 text-yellow-800' :
                                                                 'bg-red-100 text-red-800'}`}>
@@ -1234,9 +1234,9 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             </span>
                                                         </td>
 
-                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-red-600 font-bold ">₱{balance.toFixed(2)}</td>
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-red-600 ">₱{balance.toFixed(2)}</td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
-                                                            <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                                            <span className={`px-2 inline-flex text-xs leading-5 rounded-full
                                                                 ${checkOutDateTime < now && booking.status !== 'Checked-Out' ? 'bg-red-400 text-white' : // Overdue
                                                                 booking.status === 'Checked-In' ? 'bg-green-100 text-green-800' : // Green for Checked-In
                                                                 booking.status === 'Checked-Out' ? 'bg-gray-100 text-gray-800' :   // Gray for Checked-Out
