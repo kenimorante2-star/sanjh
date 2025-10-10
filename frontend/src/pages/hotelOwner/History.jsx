@@ -247,19 +247,19 @@ const History = () => {
               {historyData.length > 0 ? (
                 historyData.map((booking) => (
                   <tr key={booking.id}>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                       {booking.firstName} {booking.lastName}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.roomType}</td>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.roomType}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                         {new Date(booking.checkInDate).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                         {new Date(booking.checkOutDate).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">₱{parseFloat(booking.totalPrice).toFixed(2)}</td>
-                    <td className="px-4 py-2 whitespace-nowrap text-center text-sm font-medium">
+                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{parseFloat(booking.totalPrice).toFixed(2)}</td>
+                    <td className="px-4 py-2 whitespace-nowrap text-center text-xs font-medium">
                         
                         <button
                             onClick={() => handleShowDetails(booking)}
@@ -291,17 +291,17 @@ const History = () => {
         <button
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
-          className="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 disabled:opacity-50"
+          className="px-4 py-2 text-xs font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 disabled:opacity-50"
         >
           Previous
         </button>
-        <span className="text-sm text-gray-700">
+        <span className="text-xs text-gray-700">
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={handleNextPage}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 disabled:opacity-50"
+          className="px-4 py-2 text-xs font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700 disabled:opacity-50"
         >
           Next
         </button>
