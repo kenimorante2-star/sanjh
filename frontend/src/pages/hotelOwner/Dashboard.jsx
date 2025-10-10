@@ -1570,11 +1570,11 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             const projectedBalance = projectedTotal - projectedAmountPaid;
                             return (
                                 <div className="mt-3 text-sm">
-                                    <div className="flex justify-between"><span>Extension ({extendNights} night{extendNights === 1 ? '' : 's'})</span><span>₱{extensionBase.toFixed(2)}</span></div>
-                                    <div className="flex justify-between"><span>Extension Discount</span><span>- ₱{extensionDiscount.toFixed(2)}</span></div>
-                                    <div className="flex justify-between"><span>Projected Total Price</span><span>₱{projectedTotal.toFixed(2)}</span></div>
-                                    <div className="flex justify-between"><span>Projected Amount Paid</span><span>₱{projectedAmountPaid.toFixed(2)}</span></div>
-                                    <div className="flex justify-between font-semibold text-gray-900"><span>Projected Balance Due</span><span>₱{projectedBalance.toFixed(2)}</span></div>
+                                    <div className="flex justify-between mt-1"><span>Extension ({extendNights} night{extendNights === 1 ? '' : 's'})</span><span>₱{extensionBase.toFixed(2)}</span></div>
+                                    <div className="flex justify-between mt-1"><span>Extension Discount</span><span>- ₱{extensionDiscount.toFixed(2)}</span></div>
+                                    <div className="flex justify-between mt-1"><span>Projected Total Price</span><span>₱{projectedTotal.toFixed(2)}</span></div>
+                                    <div className="flex justify-between mt-1"><span>Projected Amount Paid</span><span>₱{projectedAmountPaid.toFixed(2)}</span></div>
+                                    <div className="flex justify-between font-semibold text-red-900 mt-2"><span>Projected Balance Due</span><span>₱{projectedBalance.toFixed(2)}</span></div>
                                 </div>
                             );
                         })()}
