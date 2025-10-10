@@ -1177,9 +1177,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
-                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid Status</th>
-                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount Paid</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking Status</th>
                                                 <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
@@ -1227,8 +1225,6 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             {/* Display nights for walk-ins */}
                                                             {booking.nights || 'N/A'}
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">₱{parseFloat(booking.totalPrice).toFixed(2)}</td>
-
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                                 ${booking.isPaid === 'Fully Paid' ? 'bg-green-100 text-green-800' :
@@ -1238,7 +1234,6 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             </span>
                                                         </td>
 
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-green-800 font-bold">₱{parseFloat(booking.amountPaid).toFixed(2)}</td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-red-600 font-bold ">₱{balance.toFixed(2)}</td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
