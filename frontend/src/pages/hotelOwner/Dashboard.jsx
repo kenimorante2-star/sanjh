@@ -1171,17 +1171,17 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Paid Status</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
-                                                <th className="px-4 py-2 text-left text-2xs font-medium text-gray-500 uppercase tracking-wider">Booking Status</th>
-                                                <th className="px-4 py-2 text-center text-2xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                                <th className="px-4 py-2 text-center text-2xs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Check-out Date/Time</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Nights</th> {/* ADDED THIS HEADER */}
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Paid Status</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+                                                <th className="px-4 py-2 text-left text-xxs font-medium text-gray-500 uppercase tracking-wider">Booking Status</th>
+                                                <th className="px-4 py-2 text-center text-xxs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                                <th className="px-4 py-2 text-center text-xxs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
