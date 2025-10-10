@@ -1054,7 +1054,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             isOverdue ? 'bg-red-200' : // Darker red for overdue
                             booking.isApproachingCheckout ? 'bg-yellow-50' : ''
                         }>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                 <button
                                     onClick={() => handleViewUserDetails(booking.userId)}
                                     className="text-blue-600 hover:underline cursor-pointer"
@@ -1063,18 +1063,18 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     {booking.user.firstName} {booking.user.lastName}
                                 </button>
                             </td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.room.roomType}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Changed to physicalRoomNumber */}
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">₱{parseFloat(booking.lateCheckOutFee || 0).toFixed(2)}</td> {/* Display Late Check-out Fee */}
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">₱{booking.totalPrice.toFixed(2)}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.room.roomType}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Changed to physicalRoomNumber */}
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{parseFloat(booking.lateCheckOutFee || 0).toFixed(2)}</td> {/* Display Late Check-out Fee */}
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{booking.totalPrice.toFixed(2)}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                                     booking.isPaid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                                 }`}>
                                     {booking.isPaid ? 'Yes' : 'No'}
                                 </span>
                             </td>
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                 <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                     ${isOverdue ? 'bg-red-400 text-white' : // Overdue
                                     booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
@@ -1089,7 +1089,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     <p className="text-yellow-600 text-xs mt-1 font-semibold">Approaching Checkout!</p>
                                 )}
                             </td>
-                            <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium">
+                            <td className="px-4 py-2 whitespace-nowrap text-right text-xs font-medium">
                                 {booking.status === 'pending' && (
                                     <>
                                         <button
@@ -1135,7 +1135,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                 )}
                             </td>
 
-                            <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                         <button
                                             onClick={() => handleShowDetails(booking)}
                                             className="text-indigo-600 hover:text-indigo-900 mr-2 cursor-pointer"
@@ -1206,8 +1206,8 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
                                                 return (
                                                     <tr key={booking.id} className={`${rowBackgroundColorClass}`}>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.id}</td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.id}</td>
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                                             <span
                                                                 className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                                                                 onClick={() => handleViewWalkInUserDetails(booking.id)}
@@ -1216,16 +1216,16 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             </span>
                                                         </td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.roomType}</td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Displaying physicalRoomNumber */}
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Displaying physicalRoomNumber */}
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                                             
                                                              {formatWalkInCheckOut(booking)}
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                                             {/* Display nights for walk-ins */}
                                                             {booking.nights || 'N/A'}
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                                 ${booking.isPaid === 'Fully Paid' ? 'bg-green-100 text-green-800' :
                                                                 booking.isPaid === 'Partial' ? 'bg-yellow-100 text-yellow-800' :
@@ -1234,8 +1234,8 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             </span>
                                                         </td>
 
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-red-600 font-bold ">₱{balance.toFixed(2)}</td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-red-600 font-bold ">₱{balance.toFixed(2)}</td>
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                                             <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
                                                                 ${checkOutDateTime < now && booking.status !== 'Checked-Out' ? 'bg-red-400 text-white' : // Overdue
                                                                 booking.status === 'Checked-In' ? 'bg-green-100 text-green-800' : // Green for Checked-In
@@ -1245,12 +1245,12 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                                 {checkOutDateTime < now && booking.status !== 'Checked-Out' ? 'OVERDUE' : booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                                                             </span>
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-xs font-medium">
 
                                                             {balance > 0 && (
                                                                 <button
                                                                     onClick={() => handlePayNowClick(booking)}
-                                                                    className="text-green-600 hover:text-green-900 mr-2 cursor-pointer"
+                                                                    className="text-green-600  hover:text-green-900 mr-2 cursor-pointer"
                                                                 >
                                                                     Pay Now
                                                                 </button>
@@ -1258,7 +1258,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
                                                             <button
                                                                 onClick={() => handleExtendWalkInBookingClick(booking)}
-                                                                className="text-indigo-600 hover:text-purple-900 mr-2 cursor-pointer"
+                                                                className="text-indigo-600  hover:text-purple-900 mr-2 cursor-pointer"
                                                             >
                                                                 Extend
                                                             </button>
@@ -1266,13 +1266,13 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                             {balance.toFixed(2) === '0.00' && booking.status !== 'Checked-Out' && (
                                                                 <button
                                                                     onClick={() => handleCheckoutWalkInClick(booking)}
-                                                                    className="text-red-600 hover:text-indigo-900 cursor-pointer"
+                                                                    className="text-red-600  hover:text-indigo-900 cursor-pointer"
                                                                 >
                                                                     Check-Out
                                                                 </button>
                                                             )}
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-xs font-medium">
                                                             {parseFloat(booking.amountPaid || 0) > 0 && (
                                                                 <button
                                                                     onClick={() => handlePrintWalkInReceipt(booking)}
@@ -1282,7 +1282,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                                 </button>
                                                             )}
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                                        <td className="px-4 py-2 whitespace-nowrap text-right text-xs font-medium">
                                                         <button
                                                                         onClick={() => handleShowWalkInDetails(booking)}
                                                                         className="text-indigo-600 hover:text-indigo-900 mr-2 cursor-pointer"
@@ -1315,7 +1315,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         <p className="mb-4 text-lg font-bold text-blue-700">
                             Balance Due: ₱{(parseFloat(currentBookingToPay.totalPrice) - parseFloat(currentBookingToPay.amountPaid || 0)).toFixed(2)}
                         </p>
-                        <label htmlFor="paymentAmount" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="paymentAmount" className="block text-xs font-medium text-gray-700 mb-2">
                             Amount to Pay:
                         </label>
                         <input
@@ -1323,13 +1323,13 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             id="paymentAmount"
                             value={paymentAmount}
                             onChange={(e) => setPaymentAmount(e.target.value)}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 block w-full border border-gray-300 rounded-md text-xs shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="Enter amount"
                             min="0.01"
                             step="0.01"
                         />
-                        {paymentError && <p className="text-red-500 text-sm mt-2">{paymentError}</p>}
-                        <div className="flex justify-end gap-3 mt-6">
+                        {paymentError && <p className="text-red-500 text-xs mt-2">{paymentError}</p>}
+                        <div className="flex justify-end gap-3 mt-6 text-xs" >
                             <button
                                 type="button"
                                 onClick={handleClosePayNowModal}
@@ -1351,7 +1351,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
             )}
 
             {showWalkInUserDetailsModal && selectedWalkInUserDetails && (
-  <div className="fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50 p-4 sm:p-6">
+  <div className="fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50 p-4 sm:p-6 text-xs">
     <div className="bg-white p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-md transform transition-all duration-300 scale-100 opacity-100">
       <h3 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">User Details</h3>
 
@@ -1424,7 +1424,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         <p className="mb-4">
                             Current Check-out: <strong>{new Date(currentBookingToExtend.checkOutDate).toLocaleDateString()}</strong>
                         </p>
-                        <label htmlFor="newCheckoutDate" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="newCheckoutDate" className="block text-xs font-medium text-gray-700 mb-2">
                             New Check-out Date:
                         </label>
                         <input
@@ -1432,7 +1432,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             id="newCheckoutDate"
                             value={newExtendCheckOutDate}
                             onChange={(e) => setNewExtendCheckOutDate(e.target.value)}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-xs p-2 focus:ring-indigo-500 focus:border-indigo-500"
                             min={new Date(new Date(currentBookingToExtend.checkOutDate).setDate(new Date(currentBookingToExtend.checkOutDate).getDate() + 1)).toISOString().split('T')[0]}
                         />
                         <div className="flex justify-end gap-3 mt-6">
@@ -1461,10 +1461,10 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                 <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
                         <h3 className="text-lg font-semibold mb-4">Confirm Check-out</h3>
-                        <p className="mb-2 text-sm text-gray-600">
+                        <p className="mb-2 text-xs text-gray-600">
                             Are you sure you want to mark booking <strong>{currentBookingToCheckout.id}</strong> as checked out?
                         </p>
-                        <p className="mb-4 text-sm text-gray-600">
+                        <p className="mb-4 text-xs text-gray-600">
                             This will mark the assigned physical room ({currentBookingToCheckout.physicalRoomNumber || 'N/A'}) as 'available'.
                         </p>
                         <div className="flex justify-end gap-3">
@@ -1504,7 +1504,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         </p>
                          {/* Discount selection for extension */}
                         <div className="mb-4">
-                            <label htmlFor="walkInExtendDiscountType" className="block text-sm font-medium text-gray-700 mb-2">
+                            <label htmlFor="walkInExtendDiscountType" className="block text-xs font-medium text-gray-700 mb-2">
                                 Apply Discount for Extension:
                             </label>
                             <select
@@ -1519,7 +1519,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             </select>
                         </div>
 
-                        <label htmlFor="walkInNightsToExtend" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="walkInNightsToExtend" className="block text-xs font-medium text-gray-700 mb-2">
                             Nights to Extend:
                         </label>
                         <input
@@ -1527,12 +1527,12 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             id="walkInNightsToExtend"
                             value={walkInNightsToExtend}
                             onChange={(e) => setWalkInNightsToExtend(parseInt(e.target.value) || 0)}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-xs p-2 focus:ring-indigo-500 focus:border-indigo-500"
                             min="1"
                             step="1"
                         />
 
-                        <label htmlFor="walkInPaymentAmount" className="block text-sm font-medium text-gray-700 mt-4 mb-2">
+                        <label htmlFor="walkInPaymentAmount" className="block text-xs font-medium text-gray-700 mt-4 mb-2">
                             Amount Paid for Extension:
                         </label>
                         <input
@@ -1542,7 +1542,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             onChange={(e) => {
                                 const value = e.target.value === '' ? 0 : parseFloat(e.target.value);
                                 setWalkInPaymentAmount(parseFloat(value) || 0)}}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-xs p-2 focus:ring-indigo-500 focus:border-indigo-500"
                             placeholder="0"
                             min="0"
                             step="0.01"
@@ -1559,7 +1559,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             const projectedAmountPaid = parseFloat(currentWalkInBookingToExtend.amountPaid || 0) + parseFloat(walkInPaymentAmount || 0);
                             const projectedBalance = projectedTotal - projectedAmountPaid;
                             return (
-                                <div className="mt-3 text-sm">
+                                <div className="mt-3 text-xs">
                                     <div className="flex justify-between mt-1"><span>Extension ({extendNights} night{extendNights === 1 ? '' : 's'})</span><span>₱{extensionBase.toFixed(2)}</span></div>
                                     <div className="flex justify-between mt-1"><span>Extension Discount</span><span>- ₱{extensionDiscount.toFixed(2)}</span></div>
                                     <div className="flex justify-between mt-1"><span>Projected Total Price</span><span>₱{projectedTotal.toFixed(2)}</span></div>
@@ -1569,7 +1569,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                             );
                         })()}
 
-                        {walkInExtendError && <p className="text-red-500 text-sm mt-2">{walkInExtendError}</p>}
+                        {walkInExtendError && <p className="text-red-500 text-xs mt-2">{walkInExtendError}</p>}
 
                         <div className="flex justify-end gap-3 mt-6">
                             <button
@@ -1597,10 +1597,10 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                 <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
                         <h3 className="text-lg font-semibold mb-4">Confirm Walk-In Check-out</h3>
-                        <p className="mb-2 text-sm text-gray-600">
+                        <p className="mb-2 text-xs text-gray-600">
                             Are you sure you want to mark walk-in booking <strong>{currentWalkInBookingToCheckout.id}</strong> as checked out?
                         </p>
-                        <p className="mb-4 text-sm text-gray-600">This will mark the assigned physical room ({currentWalkInBookingToCheckout.physicalRoomNumber || 'N/A'}) as 'available'.</p>
+                        <p className="mb-4 text-xs text-gray-600">This will mark the assigned physical room ({currentWalkInBookingToCheckout.physicalRoomNumber || 'N/A'}) as 'available'.</p>
                         <div className="flex justify-end gap-3">
                             <button
                                 type="button"
@@ -1643,12 +1643,12 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         <tbody className="bg-white divide-y divide-gray-200">
                             {(dashboardData.users || []).map((user) => ( // Added defensive check
                                 <tr key={user.id}>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{user.id}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{user.firstName} {user.lastName}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{user.phone_number || 'N/A'}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{user.email}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{user.gender}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{user.id}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{user.firstName} {user.lastName}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{user.phone_number || 'N/A'}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{user.email}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{user.gender}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                         {new Date(user.createdAt).toLocaleDateString()}
                                     </td>
                                 </tr>
@@ -1696,7 +1696,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                         </a>
                                     </p>
                                 )}
-                                <p className="text-sm text-gray-500 mt-4">
+                                <p className="text-xs text-gray-500 mt-4">
                                     <small>Profile Created: {new Date(selectedUserDetails.created_at).toLocaleString()}</small><br/>
                                     <small>Last Updated: {new Date(selectedUserDetails.updated_at).toLocaleString()}</small>
                                 </p>
@@ -1720,7 +1720,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         <h3 className="text-2xl font-playfair mb-4 text-gray-800">Reject Booking #{currentBookingToReject.id}</h3>
                         <p className="mb-4">Are you sure you want to reject this booking?</p>
                         <div className="mb-4">
-                            <label htmlFor="rejectionReason" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="rejectionReason" className="block text-gray-700 text-xs font-bold mb-2">
                                 Reason for Rejection:
                             </label>
                             <textarea
@@ -1767,7 +1767,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         <h3 className="text-2xl font-playfair mb-4 text-gray-800">Approve Booking #{currentBookingToApprove.id}</h3>
                         <p className="mb-4">Assign a physical room for this booking:</p>
                         <div className="mb-4">
-                            <label htmlFor="physicalRoomSelect" className="block text-gray-700 text-sm font-bold mb-2">
+                            <label htmlFor="physicalRoomSelect" className="block text-gray-700 text-xs font-bold mb-2">
                                 Available Room ({currentBookingToApprove.room.roomType}):
                             </label>
                             <select
@@ -1873,7 +1873,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                 </div>
                             )}
                             <div class=" pl-135">
-                        <button  onClick={handleCloseBookingDetailsModal} class="px-4 py-2 text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <button  onClick={handleCloseBookingDetailsModal} class="px-4 py-2 text-xs font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Close
                         </button>
                         </div>
@@ -1894,7 +1894,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         </button>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div class="grid grid-cols-2 gap-4 text-xs text-gray-700">
                         <div className="font-semibold">Booking ID:</div>
                             <div>{selectedBooking.id}</div>
                             <div className="font-semibold">Guest Name:</div>
@@ -1934,7 +1934,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                         </div>
 
                         <div class="mt-6 flex justify-end">
-                        <button  onClick={handleCloseWalkInModal} class="px-4 py-2 text-sm font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <button  onClick={handleCloseWalkInModal} class="px-4 py-2 text-xs font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Close
                         </button>
                         </div>
