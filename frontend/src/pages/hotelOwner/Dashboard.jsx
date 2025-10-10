@@ -986,42 +986,42 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     return (
         <div className="p-6 md:p-8 lg:p-10 bg-gray-50 min-h-screen">
-            <h1 className="text-3xl md:text-4xl font-playfair mb-8 text-gray-800">Admin Dashboard</h1>
+            <h1 className="text-3xl md:text-3xl font-playfair mb-8 text-gray-800">Admin Dashboard</h1>
 
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
                     <div>
-                        <p className="text-lg text-gray-500">Total Users</p>
-                        <p className="text-3xl font-bold text-gray-900">{dashboardData.totalUsers}</p>
+                        <p className="text-m text-gray-500">Total Users</p>
+                        <p className="text-2xl font-bold text-gray-900">{dashboardData.totalUsers}</p>
                     </div>
                     <i className="fas fa-users text-4xl text-blue-500"></i>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
                     <div>
-                        <p className="text-lg text-gray-500">Total Rooms</p>
-                        <p className="text-3xl font-bold text-gray-900">{dashboardData.totalRooms}</p>
+                        <p className="text-m text-gray-500">Total Rooms</p>
+                        <p className="text-2xl font-bold text-gray-900">{dashboardData.totalRooms}</p>
                     </div>
                     <i className="fas fa-bed text-4xl text-green-500"></i>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
                     <div>
-                        <p className="text-lg text-gray-500">Total Bookings</p>
-                        <p className="text-3xl font-bold text-gray-900">{dashboardData.totalBookings}</p>
+                        <p className="text-m text-gray-500">Total Bookings</p>
+                        <p className="text-2xl font-bold text-gray-900">{dashboardData.totalBookings}</p>
                     </div>
-                    <i className="fas fa-book-open text-4xl text-purple-500"></i>
+                    <i className="fas fa-book-open text-3xl text-purple-500"></i>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
                     <div>
-                        <p className="text-lg text-gray-500">Total Revenue</p>
-                        <p className="text-3xl font-bold text-gray-900">₱{dashboardData.totalRevenue}</p>
+                        <p className="text-m text-gray-500">Total Revenue</p>
+                        <p className="text-2xl font-bold text-gray-900">₱{dashboardData.totalRevenue}</p>
                     </div>
-                    <i className="fas fa-peso-sign text-4xl text-yellow-500"></i>
+                    <i className="fas fa-peso-sign text-3xl text-yellow-500"></i>
                 </div>
             </div>
 
             {/* Bookings Section */}
-            <h2 className="text-2xl font-playfair mb-4 text-gray-800">Recent Online Bookings</h2>
+            <h2 className="text-lg font-playfair mb-4 text-gray-800">Recent Online Bookings</h2>
 <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto mb-10">
     {loading ? (
         <p className="text-center py-4">Loading bookings...</p>
@@ -1163,7 +1163,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 </div>
 
                             {/* NEW: Recent Walk-in Bookings Section */}
-                            <h2 className="text-2xl font-playfair mb-4 text-gray-800">Recent Walk-in Bookings</h2>
+                            <h2 className="text-lg font-playfair mb-4 text-gray-800">Recent Walk-in Bookings</h2>
                             <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto mb-10">
                                 {loading ? (
                                     <p className="text-center py-4">Loading walk-in bookings...</p>
@@ -1624,7 +1624,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
             {/* Users Section */}
-            <h2 className="text-2xl font-playfair mb-4 text-gray-800">Registered Users</h2>
+            <h2 className="text-lg font-playfair mb-4 text-gray-800">Registered Users</h2>
             <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
                 {loading ? (
                     <p className="text-center py-4">Loading users...</p>
