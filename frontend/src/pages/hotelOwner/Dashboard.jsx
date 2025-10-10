@@ -1215,7 +1215,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                                                 {booking.firstName} {booking.lastName}
                                                             </span>
                                                         </td>
-                                                        <td className="px-4 py-2 whitespace-nowrap text-gray-900">{booking.roomType}</td>
+                                                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.roomType}</td>
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Displaying physicalRoomNumber */}
                                                         <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
                                                             
