@@ -1574,7 +1574,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
                                     <div className="flex justify-between mt-1"><span>Extension Discount</span><span>- ₱{extensionDiscount.toFixed(2)}</span></div>
                                     <div className="flex justify-between mt-1"><span>Projected Total Price</span><span>₱{projectedTotal.toFixed(2)}</span></div>
                                     <div className="flex justify-between mt-1"><span>Projected Amount Paid</span><span>₱{projectedAmountPaid.toFixed(2)}</span></div>
-                                    <div className="flex justify-between font-semibold text-red-900 mt-2"><span>Projected Balance Due</span><span>₱{projectedBalance.toFixed(2)}</span></div>
+                                    <div className="flex justify-between font-semibold text-red-400 mt-2"><span>Projected Balance Due</span><span>₱{projectedBalance.toFixed(2)}</span></div>
                                 </div>
                             );
                         })()}
