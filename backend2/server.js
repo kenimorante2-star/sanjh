@@ -1195,15 +1195,16 @@ app.post('/bookings/walk-in', verifyClerkToken, requireAdmin, uploadIdPicture.si
         const totalCalculatedPrice = parseFloat(frontendCalculatedTotalPrice);
 
         // Determine isPaid status based on amountPaid and totalPrice
-        let isPaidStatus;
-        if (parseFloat(amountPaid) >= totalCalculatedPrice) {
-            isPaidStatus = 'Fully Paid';
-        } else if (parseFloat(amountPaid) > 0 && parseFloat(amountPaid) < totalCalculatedPrice) {
-            isPaidStatus = 'Partial';
-        } else {
-            isPaidStatus = 'Not Paid';
-        }
+        let isPaidStatusInteger; // Use a new variable name for clarity
+        let paymentStatusText; // Keep the string status for internal logic/other columns if needed
 
+        if (updatedAmountPaid >= totalPrice) {
+            isPaidStatusInteger = 1; // Correct: Use integer 1 for Fully Paid (True)
+            paymentStatusText = 'Fully Paid'; 
+        } else {
+            isPaidStatusInteger = 0; // Correct: Use integer 0 for Partial/Not Paid (False)
+            paymentStatusText = updatedAmountPaid > 0 ? 'Partial' : 'Not Paid';
+        }
         // Set initial booking status for walk-in to 'Checked-In'
         const initialStatus = 'Checked-In';
 
