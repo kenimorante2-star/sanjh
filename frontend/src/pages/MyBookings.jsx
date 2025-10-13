@@ -294,11 +294,11 @@ const MyBookings = () => {
                                     
                                     <p className="text-gray-600 text-sm mb-1">
                                         <i className="fas fa-calendar-alt mr-2"></i>
-                                        Check-in: {new Date(booking.checkInDateAndTime).toLocaleDateString()}
+                                        Check-in: {new Date(booking.checkInDate).toLocaleDateString()}
                                     </p>
                                     <p className="text-gray-600 text-sm mb-1">
                                         <i className="fas fa-calendar-alt mr-2"></i>
-                                        Check-out: {new Date(booking.checkOutDateAndTime).toLocaleDateString()}
+                                        Check-out: {new Date(booking.checkOutDate).toLocaleDateString()}
                                     </p>
                                     <p className="text-gray-600 text-sm mb-1">
                                         <i className="fas fa-moon mr-2"></i>
