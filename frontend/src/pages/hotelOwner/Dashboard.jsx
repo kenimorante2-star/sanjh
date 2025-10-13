@@ -1948,6 +1948,7 @@ const handleCloseVerifyPayment = () => {
                         )}
                         <p className="mb-2 text-sm">Total Price: <strong>₱{parseFloat(verifyPaymentFor.totalPrice || 0).toFixed(2)}</strong></p>
                         <p className="mb-4 text-sm">Amount Already Paid: <strong>₱{parseFloat(verifyPaymentFor.amountPaid || 0).toFixed(2)}</strong></p>
+                        <p className="mb-4 text-sm">Amount Already Paid: <strong>₱{parseFloat(verifyPaymentFor.totalPrice || 0).toFixed(2)} - {parseFloat(verifyPaymentFor.amountPaid || 0).toFixed(2)}</strong></p>
 
                         <label htmlFor="verifyAmount" className="block text-sm font-medium text-gray-700 mb-2">
                             Amount Received
