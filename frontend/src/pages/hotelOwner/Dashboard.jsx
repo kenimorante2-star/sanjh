@@ -615,7 +615,7 @@ const handleCloseVerifyPayment = () => {
             setRecordingCash(false);
         }
     };
-    
+
     const handleConfirmVerifyPayment = async () => {
         if (!verifyPaymentFor) return;
         const amount = parseFloat(verifyAmount);
@@ -1129,8 +1129,8 @@ const handleCloseVerifyPayment = () => {
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room Type</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room No.</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Date/Time</th>
-                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Late Check-out Fee</th> {/* NEW COLUMN */}
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Ref</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -1165,8 +1165,8 @@ const handleCloseVerifyPayment = () => {
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.room.roomType}</td>
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{booking.physicalRoomNumber || 'N/A'}</td> {/* Changed to physicalRoomNumber */}
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">{formatLocalDateTime(booking.actualCheckInTime || booking.checkInDate)}</td>
-                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{parseFloat(booking.lateCheckOutFee || 0).toFixed(2)}</td> {/* Display Late Check-out Fee */}
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{booking.totalPrice.toFixed(2)}</td>
+                            <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">₱{(Math.max(0, parseFloat(booking.totalPrice || 0) - parseFloat(booking.amountPaid || 0))).toFixed(2)}</td>
                             <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-900">
                                 <span className={`px-2 inline-flex text-xs leading-5 rounded-full ${
                                    booking.paymentStatus === 'Fully Paid' ? 'bg-green-100 text-green-800' : booking.paymentStatus === 'Partial' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'
@@ -2101,7 +2101,8 @@ const handleCloseVerifyPayment = () => {
                         <h3 className="text-lg font-semibold mb-4">Record Cash for Booking #{recordCashFor.id}</h3>
                         <p className="mb-2 text-sm">Guest: <strong>{recordCashFor.user?.firstName || 'N/A'} {recordCashFor.user?.lastName || ''}</strong></p>
                         <p className="mb-2 text-sm">Total Price: <strong>₱{parseFloat(recordCashFor.totalPrice || 0).toFixed(2)}</strong></p>
-                        <p className="mb-4 text-sm">Amount Already Paid: <strong>₱{parseFloat(recordCashFor.amountPaid || 0).toFixed(2)}</strong></p>
+                        <p className="mb-2 text-sm">Amount Already Paid: <strong>₱{parseFloat(recordCashFor.amountPaid || 0).toFixed(2)}</strong></p>
+                        <p className="mb-4 text-sm">Balance: <strong>₱{(Math.max(0, parseFloat(recordCashFor.totalPrice || 0) - parseFloat(recordCashFor.amountPaid || 0))).toFixed(2)}</strong></p>
 
                         <label htmlFor="recordCashAmount" className="block text-sm font-medium text-gray-700 mb-2">
                             Amount Received (Cash)
